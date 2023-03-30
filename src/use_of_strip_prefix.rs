@@ -9,8 +9,7 @@ struct Point {
 #[derive(Debug)]
 struct ParsePointError;
 
-impl FromStr for Point {
-  
+impl FromStr for Point {  
   type Err = ParsePointError;
 
   fn from_str(s: &str) -> Result<Self, Self::Err> {
