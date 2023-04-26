@@ -29,9 +29,7 @@ fn anyone(random_number: f64) -> Box<dyn Animal> {
 
 pub fn demo() {
   let mut rng = rand::thread_rng();
-
   let random_number: f64 = rng.gen();
-
   println!("random number ====> {}", random_number);
 
   let animal = anyone(random_number);

@@ -9,7 +9,12 @@
 // mod advanced_traits;
 // mod traits_collections;
 mod traits_collections;
-use traits_collections::run;
+
+
+use traits_collections::{
+    run,
+    new_samasya::kaju,
+};
 
 struct Emp {
     Name: String,
@@ -31,7 +36,6 @@ fn tero(mut arr: [i16; 5] ) -> [i16; 5] {
 }
 
 fn main() {
-
     run();
 
     // use_async_task::demo();
