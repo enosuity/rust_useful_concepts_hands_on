@@ -1,20 +1,146 @@
+extern crate my_macro_lib;
+use std::collections::HashMap;
+use my_macro_lib::*;
+
+
 #[macro_export]
-macro_rules! my_vec {
-    ( $( $x:expr ),* ) => {
+macro_rules! svec {
+    ($($a:expr),*) => {
         {
-            let mut temp_vec = Vec::new();
-            $(
-                temp_vec.push($x);
-            )*
-            temp_vec
+          let mut vec = Vec::new();
+          $(
+            vec.push($a);
+          )*
+          vec.sort();
+          vec
         }
     };
+}
+
+#[macro_export]
+macro_rules! hash {
+    ($($key:expr => $val:expr),*) => {
+        {
+          let mut hash_map = HashMap::new();
+          $(
+            hash_map.insert($key, $val);
+          )*
+          hash_map
+        }
+    };
+    ($($key:expr ; $val:expr),*) => {
+      {
+        let mut hash_map = HashMap::new();
+        $(
+          hash_map.insert($key, $val);
+        )*
+        hash_map.len()
+      }
+  };
 }
 
 struct Point {
   x: i32,
   y: i32,
 }
+
+struct Emp {
+  name: String,
+  code: u16,
+  salary: f32,
+}
+
+enum Greeting {
+  Hello {id: i32},
+}
+
+make_answer!();
+
+#[derive(AnswerFn)]
+struct MyStruct;
+
+#[log_entry_and_exit(Radhe, "world")]
+fn it_will_be_destroyed() -> i32 {
+  500
+}
+
+pub fn use_marco() {
+
+  println!("================Attribute macro calling ==============");
+  println!("fn answer() ===> {}", answer());
+  println!("fn answer_fn() ===> {}", answer_fn());
+  dummy();
+  my_goal();
+
+  
+  // let st = svec!(23, 45, 67, 1, 22, 62);
+  // let hash = hash!('a'=> 15, 'b'=> 150, 'c'=> 250);
+  // println!("hash ==>  {:?}", hash);
+
+  // let hass = hash!('a'; 15, 'b'; 150, 'c'; 250);
+  // println!("hass ==>  {:?}", hass);
+
+  // let mut my_hash = HashMap::new();
+  // my_hash.insert('p', 152);
+  // my_hash.insert('q', 15);
+
+  
+}
+
+pub fn ignore_with_dot() {
+  let greet = Greeting::Hello { id: 15 };
+
+  match greet {
+    Greeting::Hello { id: my_range @ 1..=7} => {
+      println!("my_range =====> {}", my_range);
+    },
+    Greeting::Hello { id: 10..=15} => println!("Found in another range"),
+    Greeting::Hello { id } => println!("Found some other id: {}", id),
+  }
+
+
+  let emp = Emp {
+    name: "Goldy".to_string(),
+    code: 234,
+    salary: 56231.57,
+  };
+
+  match emp {
+    Emp {salary, ..} => println!("In-Hand Salary => {salary}"),
+  }
+
+
+  let numbers = (2, 4, 8, 16, 32);
+
+  match numbers {
+    (first, .., last) => {
+      println!("Some numbers: {first}, {last}");
+    }
+  }
+
+
+}
+
+pub fn ignore_pattern() {
+  let mut a = Some(5);
+  let b = Some(50);
+
+  match (a, b) {
+    (Some(_), Some(_)) => println!("Can't do it. just chill !"),
+    _ => a = b
+  }
+
+  println!("a ===> {:?}", a);
+
+  let s = Some("hello".to_string());
+
+  if let Some(_) = s {
+    println!("found String !!");
+  }
+
+  println!("{:?}", s);
+}
+
 
 pub fn pattern_and_match() {
   

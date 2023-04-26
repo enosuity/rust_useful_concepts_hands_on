@@ -1,3 +1,4 @@
-Hello my dear!
-
-How are you doing? 
+Name: 23 
+ Salary: 44 
+ Category: 2 
+  
